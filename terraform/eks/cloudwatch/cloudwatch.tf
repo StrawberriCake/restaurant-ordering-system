@@ -15,7 +15,7 @@
 
 resource "kubernetes_namespace" "cloudwatch" {
   metadata {
-    name = "eks-cloudwatch"
+    name = "amazon-cloudwatch"
   }
 }
 
@@ -29,11 +29,15 @@ resource "aws_iam_policy" "cloudwatch_logs_policy" {
         {
             "Effect": "Allow",
             "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
+                "cloudwatch:PutMetricData",
+                "ec2:DescribeVolumes",
+                "ec2:DescribeTags",
                 "logs:PutLogEvents",
                 "logs:DescribeLogStreams",
-                "logs:DescribeLogGroups"
+                "logs:DescribeLogGroups",
+                "logs:CreateLogStream",
+                "logs:CreateLogGroup",
+                "logs:PutRetentionPolicy"
             ],
             "Resource": "*"
         }
@@ -46,17 +50,24 @@ resource "aws_iam_role" "fluent_bit_role" {
   name = "fluent-bit-role"
   assume_role_policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
+    Version= "2012-10-17"
+    Statement= [
+      {
+        Effect= "Allow"
+        Principal= {
+            Federated= "arn:aws:iam::${var.aws_account_id}:oidc-provider/oidc.eks.${var.aws_region}.amazonaws.com/id/${var.eks_oidc_provider_arn}"
+        }
+        Action= "sts:AssumeRoleWithWebIdentity"
+        Condition= {
+          StringEquals= {
+            "oidc.eks.${var.aws_region}.amazonaws.com/id/${EKS_OIDCID}:aud": "sts.amazonaws.com",
+"oidc.eks.${var.aws_region}.amazonaws.com/id/${var.eks_oidc_provider_arn}:sub": "system:serviceaccount:${kubernetes_namespace.cloudwatch.metadata[0].name}:${kubernetes_service_account.fluent_bit.metadata[0].name}"
+          }
+        }
+      }
+    ]
+  }
+
 EOF
 }
 
