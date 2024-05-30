@@ -39,6 +39,12 @@ output "eks_cluster_name" {
   value       = "${module.eks.eks_cluster_name}"
 }
 
+output "eks_cluster" {
+  description = "Kubernetes Cluster Name"
+  value       = module.eks
+}
+
+
 output "eks_cluster_endpoint" {
   description = "Endpoint for EKS control plane"
   value       = "${module.eks.eks_cluster_endpoint}"
