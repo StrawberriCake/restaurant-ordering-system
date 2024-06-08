@@ -42,32 +42,33 @@ Landing Page            |  Menu Page
 
 ## Deploying Grafana for AWS Cloudwatch Monitoring
 
-1. Create a namespace: ```kubectl create ns monitoring```
+1. Install grafana using helm.
+        <details>
+        <summary open>
+        Code Snippet
+        </summary>
+        helm upgrade grafana grafana/grafana --namespace monitoring --set service.type=LoadBalancer --set adminPassword='EKS!sAWSome' 
 
-2. Install and upgrade grafana using helm.
+
+2. Get your Grafana ELB URL using the below command. Update records in Route53 if required.
         <details>
         <summary open>
         Code Snippet
         </summary>
 
-        helm install grafana grafana/grafana -n monitoring
-        helm upgrade grafana grafana/grafana --namespace monitoring --set service.type=LoadBalancer
-
-
-1. Get your Grafana ELB URL using the below command. Update records in Route53 if required.
-        <details>
-        <summary open>
-        Code Snippet
-        </summary>
-
-        export ELB=$(kubectl get svc -n grafana grafana -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+        export ELB=$(kubectl get svc -n monitoring grafana -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
         echo "http://$ELB"
 
         
 
 
 
-# Challenges and Way Forward
+# Challenges 
+
+
+# Moving Forward 
+- Integrating Github actions to build and push images to ECR when building image files
+
 
 # References
 - https://archive.eksworkshop.com/intermediate/240_monitoring/deploy-grafana/
