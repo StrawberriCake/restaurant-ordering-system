@@ -42,7 +42,7 @@ app.use(router);
 // }
 
 app.get('/api', function(req, res){
-    res.json({ message: 'Welcome to the restaurant api...' });
+    res.json({ message: 'Welcome to the restaurant api!' });
 });
 
 // PORT
