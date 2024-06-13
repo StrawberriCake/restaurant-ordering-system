@@ -135,8 +135,8 @@ export default {
                 this.errorObj.nameErr.push("Entering a name is required");
             }
             else {
-                if (!/^[A-Za-z]+$/.test(this.registerObj.name.replace(/\s/g, ""))) {
-                    this.errorObj.nameErr.push('A name can only contain letters');
+                if (!/^[A-Za-z0-9_]+$/.test(this.registerObj.name.replace(/\s/g, ""))) {
+                    this.errorObj.nameErr.push('A name can only contain letters, numbers and underscore');
                 }
             }
 
@@ -185,10 +185,10 @@ export default {
                 }
 
                 if (this.registerObj.phone.length != 10) {
-                    this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits');
+                    this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits including 65!!');
                 }
 
-                if (!/[0-9]{11}/.test(this.registerObj.phone)) {
+                if (!/[0-9]{10}/.test(this.registerObj.phone)) {
                     this.errorObj.phoneErr.push('Phone numbers can only contain numbers');
                 }
             }

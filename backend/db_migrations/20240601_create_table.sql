@@ -1,8 +1,14 @@
--- database name: "db_restaurant"
+/*
+Description: First table creation
+*/
 
-CREATE TABLE food( 
-    food_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
-    food_name VARCHAR(255), 
+create database db_restaurant;
+
+use db_restaurant;
+
+CREATE TABLE food(
+    food_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    food_name VARCHAR(255),
     food_star VARCHAR(255),
     food_vote VARCHAR(255),
     food_price VARCHAR(255),
@@ -56,12 +62,12 @@ VALUES("carne asada tacos","4.5", "999", "12.00", "0.00", "03 pieces per serving
 ("paloma","4.5","599","5.00","0.00","01 glass per serving","new dishes seasonal dishes","vegan","drink","drink/drink-3.png"),
 ("Atole","4","999","5.00","1.00","01 glass per serving","best seller","vegan","drink","drink/drink-4.png"),
 ("fruit detox","3.5","999","3.00","0.00","01 glass per serving","seasonal dishes best seller","vegan","drink","drink/drink-5.png"),
-("Coca cola","4.5","9999","3.00","0.00","01 glass per serving","best seller","vegan","drink","drink/drink-6.png"); 
+("Coca cola","4.5","9999","3.00","0.00","01 glass per serving","best seller","vegan","drink","drink/drink-6.png");
 
 
-CREATE TABLE user( 
-    user_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
-    user_name VARCHAR(255), 
+CREATE TABLE user(
+    user_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    user_name VARCHAR(255),
     user_email VARCHAR(255),
     user_phone VARCHAR(255),
     user_password VARCHAR(255),
@@ -78,9 +84,9 @@ CREATE TABLE cart (
 );
 
 
-CREATE TABLE booktable( 
-    book_id INT(11) PRIMARY KEY AUTO_INCREMENT, 
-    book_name VARCHAR(255), 
+CREATE TABLE booktable(
+    book_id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    book_name VARCHAR(255),
     book_phone VARCHAR(255),
     book_people INT,
     book_tables INT,
@@ -111,3 +117,8 @@ CREATE TABLE billstatus (
   bill_status INT,
   primary key (bill_id)
 );
+
+
+select * from db_restaurant.food;
+
+select * from db_restaurant.user;

@@ -1,4 +1,8 @@
 FROM --platform=linux/amd64 node:18 as build-stage
+
+ARG VUE_APP_ROOT_API
+ARG VUE_APP_ALLOWED_HOST
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
