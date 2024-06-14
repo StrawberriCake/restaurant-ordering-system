@@ -226,11 +226,16 @@ Landing Page            |  Menu Page
     mysql -u <username> -p <password> -h ce5-group2-restaurant.chheppac9ozc.us-east-1.rds.amazonaws.com -P 3306
     ```
 
-## 6) CI/CD - Deploying frontend/backend images to ECR and then EKS using Github Actions
+## 6) CI/CD 
+1) Deploying frontend/backend images to ECR and then EKS using Github Actions
 ![](docs/images/cicd_build_deploy_ecr.png)
-- The `build_deploy_image.yml` pipeline is triggered when a push is made to any branches at the `frontend`/`backend` folder.
-- The pipeline builds the docker image, tags it with the `latest` tag and pushes it to ECR.
-- The pipeline then updates the deployment files with the new image tag and deploys the image to EKS.
+      - The `build_deploy_image.yml` pipeline is triggered when a push is made to any branches at the `frontend`/`backend` folder.
+      - The pipeline builds the docker image, tags it with the `latest` tag and pushes it to ECR.
+      - The pipeline then updates the deployment files with the new image tag and deploys the image to EKS.
+        
+2) Code Scanning
+      - The `code_vulnebilities_scan` is trigger whenever there's any pull request to the `main` and `develop` branch.
+      - It scans for vulnerabilities in the frontend and backend code, as well as IAC code.
 
 
 # Challenges 
